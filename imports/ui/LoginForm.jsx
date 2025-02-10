@@ -45,7 +45,7 @@ export const LoginForm = () => {
         if (error) {
           alert(error.reason);
         } else {
-          alert("Login successful!");
+          // alert("Login successful!");
         }
       });
     }

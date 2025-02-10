@@ -8,10 +8,6 @@ class ServerVent extends VentServer {
         this.setSpace("Notifier", false);
         return this;
     }
-    get Insert() {
-      this.setSpace("Insert", false);
-      return this;
-  }
 }
 
 export default new ServerVent();

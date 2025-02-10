@@ -1,4 +1,4 @@
 export const VENT = {
   NOTIFIER: "Notifier",
-  INSERT: "Insert",
+  PRODUCT_UPDATE: "Product update",
 }

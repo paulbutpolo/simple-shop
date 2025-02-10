@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const Product = ({ product, onDeleteClick, isAdmin }) => {
+export const Product = ({ product, onPurchaseClick, onDeleteClick, isAdmin }) => {
   const [purchaseQuantity, setPurchaseQuantity] = useState(1);
 
   const handleQuantityChange = (e) => {
@@ -9,17 +9,17 @@ export const Product = ({ product, onDeleteClick, isAdmin }) => {
   };
 
   const handlePurchase = () => {
-    console.log(product._id, purchaseQuantity)
-    onDeleteClick({
+    onPurchaseClick({
       _id: product._id,
       quantity: purchaseQuantity
     });
   };
 
+
   const handleDelete = () => {
-    
-    console.log("Delete product:", product._id);
+    onDeleteClick({ _id: product._id });
   };
+
 
   return (
     <li>
@@ -33,7 +33,7 @@ export const Product = ({ product, onDeleteClick, isAdmin }) => {
         style={{ width: "60px", margin: "0 10px" }}
       />
        <button onClick={handlePurchase}>Purchase</button>
-          {isAdmin && ( // Conditionally render the delete button
+          {isAdmin && ( 
               <button onClick={handleDelete} style={{ marginLeft: "10px" }}>
                   Delete
               </button>
