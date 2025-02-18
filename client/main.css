@@ -128,18 +128,31 @@ header {
 
 .tasks > li {
   display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pushes elements to opposite ends */
   padding: 16px;
   border-bottom: #eee solid 1px;
+}
+
+.tasks > li > div {
+  flex-grow: 1; /* This ensures product details take up remaining space */
+}
+
+.tasks > li .actions {
+  display: flex;
+  gap: 10px;
   align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0; /* Prevents it from shrinking */
 }
 
-.tasks > li > span {
-  flex-grow: 1;
-}
-
-.tasks > li > button {
-  justify-self: flex-end;
+.tasks > li > .actions > button {
   background-color: #ff3046;
+}
+
+.tasks > li > .actions > input {
+  width: "60px";
+  margin: "0 10px";
 }
 
 .filter {
@@ -196,4 +209,70 @@ header {
   margin: 8px 16px 0;
   font-weight: bold;
   cursor: pointer;
+}
+
+.admin-component {
+  margin-left: 16px;
+}
+
+.admin-component > .admin-buttons {
+  display: flex;
+  margin: 16px;
+}
+
+.admin-component > .admin-buttons > button {
+  flex-grow: 1;
+  background-color: #315481;
+}
+
+.book-form-container {
+  margin: 16px;
+}
+
+.book-form-container > .book-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 equal columns */
+  grid-template-rows: repeat(3, auto); /* 3 rows */
+  gap: 12px;
+}
+
+.book-form > .first-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.book-form > .second-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.book-form > .third-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.book-form > button {
+  background-color: #315481;
+}
+
+.book-form > .first-row > input {
+  flex-grow: 1;
+  box-sizing: border-box;
+  padding: 10px 6px;
+  background: transparent;
+  border: 1px solid #aaa;
+  width: 100%;
+  font-size: 1em;
+  margin-right: 16px;
+}
+
+.book-form > .third-row > .input-group > input {
+  flex-grow: 1;
+  box-sizing: border-box;
+  padding: 10px 6px;
+  background: transparent;
+  border: 1px solid #aaa;
+  width: 100%;
+  font-size: 1em;
+  margin-right: 16px;
 }

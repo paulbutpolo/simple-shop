@@ -41,6 +41,19 @@ class Client extends meteorwatcher{
         this.#store.setState({ products: [] });
       })
       this.listen();
+
+      // Seeding initial data for fake things
+      // const seedDatabase = async () => {
+      //   try {
+      //     console.log('Starting data seeding...');
+      //     const result = await this.callFunc('seedProducts');
+      //     console.log(result);
+      //   } catch (error) {
+      //     console.error('Error seeding data:', error);
+      //   }
+      // };
+
+      // seedDatabase();
     }
 
     async initialData() {
@@ -99,14 +112,26 @@ class Client extends meteorwatcher{
               this.#store.setState({ products: redisVentFetch }); // overwrite the producsts in create object
               break;
             case "update":
-              this.#productsDB.update({ _id: detailedData._id }, { $inc: {productQuantity: -detailedData.productQuantity} } ) // for some reason findandupdate is not working
-              const result = this.#productsDB.findOne({_id: detailedData._id})
+              // console.log("Updating the product", new Mongo.ObjectID(detailedData._id._str))
+              this.#productsDB.update({ _id: new Mongo.ObjectID(detailedData._id._str) }, { $inc: {productQuantity: -detailedData.productQuantity} } ) // for some reason findandupdate is not working
+              const result = this.#productsDB.findOne({_id: new Mongo.ObjectID(detailedData._id._str)})
+              console.log("Result:", result)
               // Step 1: Get the current products array
               const currentProductsArray = this.#store.getState().products // for some reason I can't use this.productsDB here
               // Step 2: Find the index of the product in the products array
-              const productIndex = currentProductsArray.findIndex(
-                product => product._id === result._id
-              );
+              const productIndex = currentProductsArray.findIndex(product => {
+                // Convert both IDs to strings for comparison
+                const productIdStr = new Mongo.ObjectID(product._id._str).toString();
+                const resultIdStr = new Mongo.ObjectID(result._id._str).toString();
+              
+                // Log the values for debugging
+                console.log("Product ID:", productIdStr);
+                console.log("Result ID:", resultIdStr);
+                console.log("Do they match?", productIdStr === resultIdStr);
+              
+                // Perform the comparison
+                return productIdStr === resultIdStr;
+              });
               if (productIndex !== -1) {
                 // Step 3: Create a copy of the products array
                 const updatedProducts = [...currentProductsArray];

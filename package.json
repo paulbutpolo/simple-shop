@@ -9,12 +9,16 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.20.7",
+    "@faker-js/faker": "^9.4.0",
     "amqplib": "^0.10.5",
     "bcrypt": "^5.1.1",
+    "bson": "^6.10.2",
     "dotenv": "^16.4.7",
     "meteor-node-stubs": "^1.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router": "^6.29.0",
+    "react-router-dom": "^6.29.0",
     "redis": "^4.7.0"
   },
   "meteor": {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-export const Product = ({ product, onPurchaseClick, onDeleteClick, isAdmin }) => {
+
+export const Product = ({ product, onPurchaseClick, onDeleteClick, onProductClick, isAdmin }) => {
   const [purchaseQuantity, setPurchaseQuantity] = useState(1);
 
   const handleQuantityChange = (e) => {
@@ -11,33 +12,45 @@ export const Product = ({ product, onPurchaseClick, onDeleteClick, isAdmin }) =>
   const handlePurchase = () => {
     onPurchaseClick({
       _id: product._id,
+      bookId: product.bookId,
       quantity: purchaseQuantity
     });
   };
-
 
   const handleDelete = () => {
     onDeleteClick({ _id: product._id });
   };
 
+  const handleProductClick = () => {
+    onProductClick({ 
+      modalStatus: true,
+      bookId: product.bookId,
+      product: product
+    });
+  }
 
   return (
     <li>
-      <span>{product.productName} (Quantity: {product.productQuantity}) (Price: {product.productPrice})</span>
-      <input
-        type="number"
-        min="1"
-        max={product.productQuantity}
-        value={purchaseQuantity}
-        onChange={handleQuantityChange}
-        style={{ width: "60px", margin: "0 10px" }}
-      />
-       <button onClick={handlePurchase}>Purchase</button>
-          {isAdmin && ( 
-              <button onClick={handleDelete} style={{ marginLeft: "10px" }}>
-                  Delete
-              </button>
-          )}
+      <div onClick={handleProductClick} style={{ cursor: "pointer" }}>
+        <span>
+          {product.productName} (Quantity: {product.productQuantity}) (Price: {product.productPrice})
+        </span>
+      </div>
+      <div className="actions">
+        <input
+          type="number"
+          min="1"
+          max={product.productQuantity}
+          value={purchaseQuantity}
+          onChange={handleQuantityChange}
+        />
+        <button onClick={handlePurchase} style={{ backgroundColor: "Green" }}>Purchase</button>
+        {isAdmin && (
+          <button onClick={handleDelete}>
+            Delete
+          </button>
+        )}
+      </div>
     </li>
   );
 };
